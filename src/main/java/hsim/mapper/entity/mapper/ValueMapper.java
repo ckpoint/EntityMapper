@@ -1,4 +1,4 @@
-package hsim.mapper.entity.util;
+package hsim.mapper.entity.mapper;
 
 import lombok.Getter;
 
@@ -29,6 +29,8 @@ public abstract class ValueMapper {
         this.validation();
     }
 
+    public abstract boolean isIgnore();
+
     protected abstract Type getType();
 
     protected abstract Class getTypeClass();
@@ -42,7 +44,7 @@ public abstract class ValueMapper {
 
     public abstract void set(Object obj, Object value) throws NotSupportedException, InvocationTargetException, IllegalAccessException;
 
-    public abstract Object get(Object obj, Object value) throws NotSupportedException, InvocationTargetException, IllegalAccessException;
+    public abstract Object get(Object obj) throws NotSupportedException, InvocationTargetException, IllegalAccessException;
 
     public boolean isMethod() {
         return this.method != null;

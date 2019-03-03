@@ -1,4 +1,4 @@
-package hsim.mapper.entity.util;
+package hsim.mapper.entity.mapper;
 
 import java.util.List;
 

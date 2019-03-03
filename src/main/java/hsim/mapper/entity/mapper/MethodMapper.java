@@ -1,5 +1,6 @@
-package hsim.mapper.entity.util;
+package hsim.mapper.entity.mapper;
 
+import hsim.mapper.entity.annotation.IgnoreUpdateFromObj;
 import hsim.mapper.entity.contants.Constants;
 import hsim.mapper.entity.type.TypeMap;
 import lombok.Getter;
@@ -12,11 +13,11 @@ import java.util.Arrays;
 import java.util.List;
 
 @Getter
-public class FieldMapper extends ValueMapper {
+public class MethodMapper extends ValueMapper {
 
     private final static List<Class> notSupportReturnTypes = Arrays.asList(Void.class, void.class);
 
-    public FieldMapper(Method method) throws NotSupportedException {
+    public MethodMapper(Method method) throws NotSupportedException {
         super(method, null);
     }
 
@@ -30,7 +31,7 @@ public class FieldMapper extends ValueMapper {
     }
 
     @Override
-    public Object get(Object obj, Object value) throws NotSupportedException, InvocationTargetException, IllegalAccessException {
+    public Object get(Object obj) throws NotSupportedException, InvocationTargetException, IllegalAccessException {
         if (!(isGetter())) {
             throw new NotSupportedException(this.getMethod().getName() + " is not getter");
         }
@@ -45,6 +46,11 @@ public class FieldMapper extends ValueMapper {
         return this.getMethod().getName().startsWith(Constants.GETTER_PREFIX);
     }
 
+
+    @Override
+    public boolean isIgnore() {
+        return this.getMethod().getAnnotation(IgnoreUpdateFromObj.class) != null;
+    }
 
     @Override
     protected Type getType() {

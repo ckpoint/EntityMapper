@@ -12,7 +12,7 @@ import java.util.function.Function;
 public enum TypeMap {
 
     Long_(new Class[]{long.class, Long.class}, new Class[]{int.class, Integer.class, Short.class, short.class}, v -> v, v -> Long.valueOf(toString(v))),
-    Int_(new Class[]{int.class, Integer.class}, new Class[]{int.class, Integer.class, Short.class, short.class}, v -> v, v -> Integer.valueOf(toString(v))),
+    Int_(new Class[]{int.class, Integer.class}, new Class[]{ Short.class, short.class}, v -> v, v -> Integer.valueOf(toString(v))),
     Double_(new Class[]{double.class, Double.class}, new Class[]{Float.class, float.class, int.class, Integer.class, Short.class, short.class}, v -> v, v -> Double.valueOf(toString(v))),
     Float_(new Class[]{float.class, Float.class}, new Class[]{int.class, Integer.class, Short.class, short.class}, v -> v, v -> Float.valueOf(toString(v))),
     String_(new Class[]{String.class}, new Class[]{}, v -> v, v -> toString(v)),
@@ -20,7 +20,7 @@ public enum TypeMap {
     Date_(new Class[]{Date.class}, new Class[]{Long.class, long.class}, v -> new Date(((Date) v).getTime()), v -> new Date((Long) v)),
     DateStr_(new Class[]{Date.class}, new Class[]{String.class}, v -> new Date(((Date) v).getTime()), v -> new DateTime(v).toDate()),
     DateTime_(new Class[]{DateTime.class}, new Class[]{Date.class}, v -> new DateTime(((Date) v).getTime()), v -> new DateTime(v)),
-    DateDateTime_(new Class[]{Date.class}, new Class[]{DateTime.class}, v -> new Date(((Date) v).getTime()), v -> ((DateTime)v).toDate());
+    DateDateTime_(new Class[]{Date.class}, new Class[]{DateTime.class}, v -> new Date(((Date) v).getTime()), v -> ((DateTime) v).toDate());
 
     private final Class[] to;
     private final Class[] from;

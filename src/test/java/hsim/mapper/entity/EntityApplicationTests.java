@@ -1,32 +1,34 @@
 package hsim.mapper.entity;
 
-import hsim.mapper.entity.domain.MapAuditEntity;
-import hsim.mapper.entity.domain.MapEntity;
 import hsim.mapper.entity.domain.Users;
-import hsim.mapper.entity.repository.UsersRepository;
+import hsim.mapper.entity.model.UsersModel;
 import lombok.extern.slf4j.Slf4j;
-import org.h2.engine.User;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 
-@RunWith(SpringRunner.class)
-@SpringBootTest
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+import java.util.Arrays;
+
 @Slf4j
 public class EntityApplicationTests {
-
-    @Autowired
-    private UsersRepository usersRepository;
 
     @Test
     public void contextLoads() {
 
-        Users user = new Users();
-        user = this.usersRepository.save(user);
-        log.info(user.toString());
+        UsersModel userModel = new UsersModel();
+        userModel.setAge(20);
+        userModel.setEmail("hsim@daou.co.kr");
+        userModel.setName("hsim");
+        userModel.setGender("MAN");
+        userModel.setStrs(Arrays.asList("123", "456"));
+        userModel.setId(1L);
+
+        Users users = new Users();
+        users.updateFromObj(userModel);
+
+        log.info(users.toString());
 
     }
+
 
 }

@@ -1,4 +1,4 @@
-package hsim.mapper.entity.domain;
+package hsim.mapper.entity.model;
 
 
 import hsim.mapper.entity.mapper.GetterGroup;
@@ -10,7 +10,7 @@ import javax.transaction.NotSupportedException;
 
 @MappedSuperclass
 @Slf4j
-public abstract class MapEntity {
+public abstract class MapModel {
 
     public void updateFromObj(Object obj) {
         try {

@@ -13,7 +13,7 @@ import java.util.Date;
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
 @Getter
-public abstract class MapAuditEntity extends MapEntity {
+public abstract class MapAuditEntity extends MapBaseEntity {
 
     @CreatedDate
     @Column(nullable = false, updatable = false)

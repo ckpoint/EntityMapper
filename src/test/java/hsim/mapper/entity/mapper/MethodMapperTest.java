@@ -1,4 +1,4 @@
-package hsim.mapper.entity.util;
+package hsim.mapper.entity.mapper;
 
 import hsim.mapper.entity.domain.MapAuditEntity;
 import hsim.mapper.entity.domain.MapEntity;
