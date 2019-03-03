@@ -2,21 +2,30 @@ package hsim.mapper.entity.mapper;
 
 import hsim.mapper.entity.annotation.IgnoreUpdateFromObj;
 import hsim.mapper.entity.contants.Constants;
+import hsim.mapper.entity.exception.NotSupportedException;
 import hsim.mapper.entity.type.TypeMap;
 import lombok.Getter;
 
-import javax.transaction.NotSupportedException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Type;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * The type Method mapper.
+ */
 @Getter
 public class MethodMapper extends ValueMapper {
 
     private final static List<Class> notSupportReturnTypes = Arrays.asList(Void.class, void.class);
 
+    /**
+     * Instantiates a new Method mapper.
+     *
+     * @param method the method
+     * @throws NotSupportedException the not supported exception
+     */
     public MethodMapper(Method method) throws NotSupportedException {
         super(method, null);
     }
@@ -38,10 +47,20 @@ public class MethodMapper extends ValueMapper {
         return this.getMethod().invoke(obj);
     }
 
+    /**
+     * Is setter boolean.
+     *
+     * @return the boolean
+     */
     public boolean isSetter() {
         return this.getMethod().getName().startsWith(Constants.SETTER_PREFIX);
     }
 
+    /**
+     * Is getter boolean.
+     *
+     * @return the boolean
+     */
     public boolean isGetter() {
         return this.getMethod().getName().startsWith(Constants.GETTER_PREFIX);
     }

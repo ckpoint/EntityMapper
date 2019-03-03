@@ -5,8 +5,15 @@ import java.util.List;
 public class TestMethods {
 
 
-    public void getInvalid() {
+    public Long getId() {
+        return 1L;
+    }
 
+    public void setId(Long id) {
+
+    }
+
+    public void getInvalid() {
     }
 
     public void setInvalid(String a, String b) {

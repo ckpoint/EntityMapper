@@ -1,24 +1,29 @@
 package hsim.mapper.entity.domain;
 
 
-import hsim.mapper.entity.mapper.GetterGroup;
-import hsim.mapper.entity.mapper.SetterGroup;
-import lombok.extern.slf4j.Slf4j;
+import hsim.mapper.entity.exception.NotSupportedException;
+import hsim.mapper.entity.mapper.FieldUpdator;
 
 import javax.persistence.MappedSuperclass;
-import javax.transaction.NotSupportedException;
 
+
+/**
+ * The type Map entity.
+ */
 @MappedSuperclass
-@Slf4j
 public abstract class MapEntity {
 
+    /**
+     * Update from obj.
+     *
+     * @param obj the obj
+     */
     public void updateFromObj(Object obj) {
         try {
-            GetterGroup getterGroup = new GetterGroup(obj);
-            SetterGroup setterGroup = new SetterGroup(this);
-            setterGroup.sets(getterGroup);
+            FieldUpdator fieldUpdator = new FieldUpdator(obj, this);
+            fieldUpdator.update();
         } catch (NotSupportedException e) {
-            log.info(e.getMessage());
+            e.printStackTrace();
         }
     }
 }

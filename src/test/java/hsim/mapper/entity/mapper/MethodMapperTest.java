@@ -1,21 +1,18 @@
 package hsim.mapper.entity.mapper;
 
 import hsim.mapper.entity.domain.MapAuditEntity;
-import hsim.mapper.entity.domain.MapEntity;
-import lombok.extern.slf4j.Slf4j;
+import hsim.mapper.entity.exception.NotSupportedException;
 import org.junit.Assert;
 import org.junit.Test;
 
-import javax.transaction.NotSupportedException;
 import java.lang.reflect.Method;
 import java.util.List;
 
-@Slf4j
 public class MethodMapperTest {
 
     @Test
     public void fieldNameTest_01() throws NoSuchMethodException, NotSupportedException {
-        Method method = MapEntity.class.getMethod("getId");
+        Method method = TestMethods.class.getMethod("getId");
 
         MethodMapper methodMapper = new MethodMapper(method);
 
@@ -25,7 +22,7 @@ public class MethodMapperTest {
 
     @Test
     public void fieldNameTest_02() throws NoSuchMethodException, NotSupportedException {
-        Method method = MapEntity.class.getMethod("setId", Long.class);
+        Method method = TestMethods.class.getMethod("setId", Long.class);
 
         MethodMapper methodMapper = new MethodMapper(method);
 
@@ -52,7 +49,6 @@ public class MethodMapperTest {
         try {
             MethodMapper methodMapper = new MethodMapper(invalidGetter);
         } catch (NotSupportedException e1) {
-            log.error(e1.toString());
             e = e1;
         }
 
@@ -67,7 +63,6 @@ public class MethodMapperTest {
         try {
             MethodMapper methodMapper = new MethodMapper(invalidSetter);
         } catch (NotSupportedException e1) {
-            log.error(e1.toString());
             e = e1;
         }
 

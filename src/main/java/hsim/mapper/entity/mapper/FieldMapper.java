@@ -1,16 +1,26 @@
 package hsim.mapper.entity.mapper;
 
 import hsim.mapper.entity.annotation.IgnoreUpdateFromObj;
+import hsim.mapper.entity.exception.NotSupportedException;
 import lombok.Getter;
 import lombok.NonNull;
 
-import javax.transaction.NotSupportedException;
 import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
 import java.lang.reflect.Type;
 
+/**
+ * The type Field mapper.
+ */
 @Getter
 public class FieldMapper extends ValueMapper {
 
+    /**
+     * Instantiates a new Field mapper.
+     *
+     * @param field the field
+     * @throws NotSupportedException the not supported exception
+     */
     public FieldMapper(@NonNull Field field) throws NotSupportedException {
         super(null, field);
     }
@@ -30,7 +40,12 @@ public class FieldMapper extends ValueMapper {
 
     @Override
     public boolean isIgnore() {
-        return this.getField().getAnnotation(IgnoreUpdateFromObj.class) != null;
+        if (Modifier.isStatic(this.getField().getModifiers())) {
+            return true;
+        } else if (this.getField().getAnnotation(IgnoreUpdateFromObj.class) != null) {
+            return true;
+        }
+        return false;
     }
 
     @Override

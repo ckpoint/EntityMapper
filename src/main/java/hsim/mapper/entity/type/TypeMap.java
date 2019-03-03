@@ -9,17 +9,47 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.function.Function;
 
+/**
+ * The enum Type map.
+ */
 public enum TypeMap {
 
+    /**
+     * The Long.
+     */
     Long_(new Class[]{long.class, Long.class}, new Class[]{int.class, Integer.class, Short.class, short.class}, v -> v, v -> Long.valueOf(toString(v))),
-    Int_(new Class[]{int.class, Integer.class}, new Class[]{ Short.class, short.class}, v -> v, v -> Integer.valueOf(toString(v))),
+    /**
+     * The Int.
+     */
+    Int_(new Class[]{int.class, Integer.class}, new Class[]{Short.class, short.class}, v -> v, v -> Integer.valueOf(toString(v))),
+    /**
+     * The Double.
+     */
     Double_(new Class[]{double.class, Double.class}, new Class[]{Float.class, float.class, int.class, Integer.class, Short.class, short.class}, v -> v, v -> Double.valueOf(toString(v))),
+    /**
+     * The Float.
+     */
     Float_(new Class[]{float.class, Float.class}, new Class[]{int.class, Integer.class, Short.class, short.class}, v -> v, v -> Float.valueOf(toString(v))),
+    /**
+     * The String.
+     */
     String_(new Class[]{String.class}, new Class[]{}, v -> v, v -> toString(v)),
 
+    /**
+     * The Date.
+     */
     Date_(new Class[]{Date.class}, new Class[]{Long.class, long.class}, v -> new Date(((Date) v).getTime()), v -> new Date((Long) v)),
+    /**
+     * The Date str.
+     */
     DateStr_(new Class[]{Date.class}, new Class[]{String.class}, v -> new Date(((Date) v).getTime()), v -> new DateTime(v).toDate()),
+    /**
+     * The Date time.
+     */
     DateTime_(new Class[]{DateTime.class}, new Class[]{Date.class}, v -> new DateTime(((Date) v).getTime()), v -> new DateTime(v)),
+    /**
+     * The Date date time.
+     */
     DateDateTime_(new Class[]{Date.class}, new Class[]{DateTime.class}, v -> new Date(((Date) v).getTime()), v -> ((DateTime) v).toDate());
 
     private final Class[] to;
@@ -34,6 +64,14 @@ public enum TypeMap {
         this.cast = cast;
     }
 
+    /**
+     * Cast t.
+     *
+     * @param <T>    the type parameter
+     * @param obj    the obj
+     * @param target the target
+     * @return the t
+     */
     public static <T> T cast(@NonNull Object obj, @NonNull Class<T> target) {
         if (target.isEnum()) {
             return enumCast(obj, target);
@@ -52,6 +90,14 @@ public enum TypeMap {
 
     }
 
+    /**
+     * Enum cast t.
+     *
+     * @param <T>    the type parameter
+     * @param obj    the obj
+     * @param target the target
+     * @return the t
+     */
     public static <T> T enumCast(@NonNull Object obj, @NonNull Class<T> target) {
         if (obj.getClass().isEnum() && obj.getClass().equals(target)) {
             return target.cast(obj);
@@ -65,6 +111,10 @@ public enum TypeMap {
         }
     }
 
+    private static String toString(Object obj) {
+        return obj + "";
+    }
+
     private boolean isSupportType(Class to, Class from) {
 
         for (Class t : this.to) {
@@ -75,14 +125,8 @@ public enum TypeMap {
         return false;
     }
 
-
     private boolean isAllSupport() {
         return this.from.length < 1;
-    }
-
-
-    private static String toString(Object obj) {
-        return obj + "";
     }
 
 }

@@ -1,26 +1,37 @@
 package hsim.mapper.entity.domain;
 
+import hsim.mapper.entity.annotation.IgnoreUpdateFromObj;
 import lombok.Getter;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.Column;
-import javax.persistence.EntityListeners;
 import javax.persistence.MappedSuperclass;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import java.util.Date;
 
+/**
+ * The type Map audit entity.
+ */
 @MappedSuperclass
-@EntityListeners(AuditingEntityListener.class)
 @Getter
 public abstract class MapAuditEntity extends MapBaseEntity {
 
-    @CreatedDate
     @Column(nullable = false, updatable = false)
+    @IgnoreUpdateFromObj
     private Date createdAt;
 
-    @LastModifiedDate
     @Column(nullable = false)
+    @IgnoreUpdateFromObj
     private Date updatedAt;
 
+    @PrePersist
+    private void prePersist() {
+        this.createdAt = new Date();
+        this.updatedAt = this.createdAt;
+    }
+
+    @PreUpdate
+    private void preUpdate() {
+        this.updatedAt = new Date();
+    }
 }
