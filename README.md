@@ -2,7 +2,7 @@
 # Entity-Mapper
 EntityMapper is an intelligent object mapping library that automatically maps objects to Entity class.
 
- Check-Point depends on [[Project Lombok](http://projectlombok.org/), [JODA TIME](https://github.com/JodaOrg/joda-time)]
+EntityMapper depends on [[Project Lombok](http://projectlombok.org/), [JODA TIME](https://github.com/JodaOrg/joda-time)]
 
 #### ※EntityMaper does not need a setter and getter
 
