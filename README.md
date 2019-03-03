@@ -25,6 +25,7 @@ EntityMapper is an intelligent object mapping library that automatically maps ob
 ## Table of Contents
 - [ 1. Create entity with entity-mapper ](#create-entity)
 - [ 2. Update entity with entity-mapper ](#update-entity)
+- [ 3. Handling specific field or method exceptions ](#handling-field-method)
 
 
 ## Create Entity
@@ -93,4 +94,29 @@ public class Account extends MapAuditEntity{
     }
 
 ```
+## Handling Field Method
+- If you want to exclude certain fields or setter functions from automatic mapping, You just need to put the @IgnoreUpdateFromObj annotation.
 
+### for exmaple
+
+```java
+
+
+@Entity
+@Getter
+public class Account extends MapAuditModel {
+    private String name;
+    private String email;
+
+    @IgnoreUpdateFromObj
+    private Long age;
+
+    private Gender gender;
+
+    @IgnoreUpdateFromObj
+    public void setAge(Long age) {
+        this.age = age;
+    }
+}
+
+```
